@@ -34,33 +34,6 @@ def reserve_seat():
             return jsonify({'success': False, 'error': 'Invalid seat number.'}), 400
     return render_template('reserve_seat.html', total_seats=total_seats)
 
-@app.route('/cancel-reservation/<int:seat_number>', methods=['POST'])
-def cancel_reservation(seat_number):
-    if seat_number <= total_seats and seat_number > 0 and seats[str(seat_number)]:
-        seats[str(seat_number)] = False
-        return jsonify({'message': f'Reservation for seat {seat_number} has been canceled.'}), 200
-    else:
-        return jsonify({'error': 'Seat is not reserved or does not exist.'}), 400
-
-@app.route('/check-seat/<int:seat_number>')
-def check_seat_availability(seat_number):
-    if seat_number <= total_seats and seat_number > 0:
-        return jsonify({'seat_number': seat_number, 'available': not seats[str(seat_number)]}), 200
-    else:
-        return jsonify({'error': 'Invalid seat number.'}), 400
-
-@app.route('/seats')
-def list_seats():
-    return jsonify(seats), 200
-
-@app.route('/reservation-summary/<name>')
-def reservation_summary(name):
-    reserved_seats = [seat for seat, reserved in seats.items() if reserved]
-    return render_template('reservation_summary.html', name=name, reserved_seats=reserved_seats)
-
-@app.route('/error')
-def error():
-    return render_template('error.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
