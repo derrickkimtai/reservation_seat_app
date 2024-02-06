@@ -1,39 +1,47 @@
 /* styles.css */
 
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f5f5f5;
-    margin: 0;
-    padding: 0;
+.background-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
 }
 
-.container {
-    max-width: 800px;
-    margin: 50px auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Add a semi-transparent overlay for better readability */
 }
 
-h1 {
-    color: #3498db;
+.content-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
+    z-index: 1; /* Ensure the content is above the overlay */
+    color: #fff; /* Set text color to white for better contrast */
 }
 
-p {
-    color: #555;
-    font-size: 1.2em;
-    text-align: center;
+h1.display-4 {
+    font-size: 3em; /* Increase font size for the heading */
+    margin-bottom: 20px; /* Add margin at the bottom for separation */
+}
+
+p.lead {
+    font-size: 1.5em; /* Increase font size for the lead paragraph */
+    margin-bottom: 40px; /* Add more margin at the bottom for separation */
 }
 
 .button-container {
-    text-align: center;
     margin-top: 20px;
 }
 
 .btn-primary {
-    display: inline-block;
     padding: 12px 30px;
     font-size: 1.2em;
     text-decoration: none;
@@ -46,37 +54,5 @@ p {
 
 .btn-primary:hover {
     background-color: #2980b9;
-}
-
-/* Navbar styles */
-
-.navbar {
-    background: linear-gradient(to right, #3498db, #2980b9);
-    padding: 15px 0;
-}
-
-.navbar-brand {
-    color: #fff;
-    font-size: 1.5em;
-    font-weight: bold;
-}
-
-.navbar-nav {
-    text-align: center;
-}
-
-.nav-item {
-    margin-right: 15px;
-}
-
-.nav-link {
-    color: #fff;
-    font-size: 1.2em;
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-.nav-link:hover {
-    color: #f1c40f;
 }
 

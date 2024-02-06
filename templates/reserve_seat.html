@@ -9,47 +9,95 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
     <style>
         /* Your additional styles here */
+        .seat-map {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* Adjust the number of columns as needed */
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .seat {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background-color: #f5f5f5;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+            line-height: 50px;
+            cursor: pointer;
+        }
+        .seat.selected {
+            background-color: #3498db;
+            color: #fff;
+        }
     </style>
 {% endblock %}
 
 {% block content %}
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reserve Your Seat</title>
-</head>
-
-<body>
-
 <div class="container">
     <h1 class="display-4 text-center">Reserve Your Seat</h1>
 
-    <form>
+    <!-- Seat Map -->
+    <div class="seat-map">
+        {% for seat_number in range(1, total_seats + 1) %}
+            <div class="seat" data-seat-number="{{ seat_number }}">{{ seat_number }}</div>
+        {% endfor %}
+    </div>
+
+    <!-- Reservation Form -->
+    <form id="reservation-form">
         <div class="form-group">
             <label for="name">Your Name:</label>
             <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
         </div>
 
         <div class="form-group">
-            <label for="seatNumber">Seat Number:</label>
-            <input type="text" class="form-control" id="seatNumber" placeholder="Enter seat number" required>
+            <label for="selectedSeat">Selected Seat:</label>
+            <input type="text" class="form-control" id="selectedSeat" readonly>
         </div>
 
         <button type="submit" class="btn btn-primary">Reserve Seat</button>
     </form>
 </div>
-
 {% endblock %}
 
 {% block scripts %}
     {{ super() }}
-</body>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const seats = document.querySelectorAll(".seat");
 
-</html>
+            seats.forEach(seat => {
+                seat.addEventListener("click", function() {
+                    if (!seat.classList.contains("selected")) {
+                        seats.forEach(s => s.classList.remove("selected"));
+                        seat.classList.add("selected");
+                        document.getElementById("selectedSeat").value = seat.getAttribute("data-seat-number");
+                    } else {
+                        seat.classList.remove("selected");
+                        document.getElementById("selectedSeat").value = "";
+                    }
+                });
+            });
 
+            document.getElementById("reservation-form").addEventListener("submit", function(event) {
+                event.preventDefault();
+                const name = document.getElementById("name").value;
+                const selectedSeat = document.getElementById("selectedSeat").value;
+                if (name.trim() === "") {
+                    alert("Please enter your name.");
+                } else if (selectedSeat.trim() === "") {
+                    alert("Please select a seat.");
+                } else {
+                    // Here you can submit the reservation data to the server
+                    alert(`Reservation successful!\nName: ${name}\nSeat Number: ${selectedSeat}`);
+                    // Reset form after successful submission
+                    document.getElementById("reservation-form").reset();
+                    seats.forEach(seat => seat.classList.remove("selected"));
+                    document.getElementById("selectedSeat").value = "";
+                }
+            });
+        });
+    </script>
 {% endblock %}
 

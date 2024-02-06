@@ -32,7 +32,7 @@ def reserve_seat():
                 return jsonify({'success': False, 'error': 'Seat is already reserved.'}), 400
         else:
             return jsonify({'success': False, 'error': 'Invalid seat number.'}), 400
-    return render_template('reserve_seat.html')
+    return render_template('reserve_seat.html', total_seats=total_seats)
 
 @app.route('/cancel-reservation/<int:seat_number>', methods=['POST'])
 def cancel_reservation(seat_number):

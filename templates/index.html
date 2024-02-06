@@ -2,7 +2,9 @@
 
 {% extends "bootstrap/base.html" %}
 
-{% block title %}Seat Reservation System{% endblock %}
+{% block title %}
+    international transport reservation
+{% endblock %}
 
 {% block styles %}
     {{ super() }}
@@ -10,37 +12,19 @@
 {% endblock %}
 
 {% block content %}
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seat Reservation System</title>
-</head>
-
-<body>
-
-<div class="container">
-    <h1 class="display-4">Seat Reservation</h1>
-    <p class="lead">This is a simple seat reservation system.</p>
-    <div class="button-container">
-        <a href="/reserve-seat" class="btn btn-primary">Reserve Your Seat</a>
+<div class="background-container" style="background-image: url('{{ url_for('static', filename='images/transport.jpg') }}');">
+    <div class="overlay"></div> <!-- Add an overlay for better readability of content -->
+    <div class="content-container">
+        <h1 class="display-4">Seat Reservation</h1>
+        <p class="lead">This is a simple seat reservation system.</p>
+        <div class="button-container">
+            <a href="/reserve-seat" class="btn btn-primary">Reserve Your Seat</a>
+        </div>
     </div>
 </div>
+{% endblock %}
 
 {% block scripts %}
     {{ super() }}
 {% endblock %}
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-ss2GMP8tTzUZ9DBfHsp1oRVJcWk/Dli5R/5CxN6hR8RSMjTBAVpZK0D5e5tr5I2b" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyUsxgqyo9giS6UJDAeIbo4wH5tr5IM72M" crossorigin="anonymous"></script>
-
-</body>
-
-{% endblock %}
-
-</html>
 
